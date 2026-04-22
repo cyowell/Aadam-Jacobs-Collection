@@ -19,10 +19,10 @@ if os.path.exists(FILE_PATH):
 
 print(f"Searching for uploads after: {last_checkpoint}")
 
-# 2. Elegant Search
-query = f"uploader:{UPLOADER} AND addeddate:[{last_checkpoint} TO 9999-12-31]"
-# Change 'sort_by' to 'sort' and provide the sort string correctly
-search = ia.search_items(query, sort=['addeddate'])
+# 2. Simplified Search (Moving sort into the query string)
+# We use 'sort:addeddate' inside the string to avoid keyword argument errors
+query = f"uploader:{UPLOADER} AND addeddate:[{last_checkpoint} TO 9999-12-31] sort:addeddate"
+search = ia.search_items(query)
 
 new_items = []
 for result in search:
@@ -34,7 +34,6 @@ if not new_items:
 
 # 3. Append only the truly new items
 with open(FILE_PATH, 'a', newline='', encoding='utf-8') as f:
-    # Match your 7-column header exactly
     fields = ['identifier', 'title', 'date', 'creator', 'venue', 'url', 'addeddate']
     writer = csv.DictWriter(f, fieldnames=fields)
     
