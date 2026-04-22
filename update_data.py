@@ -21,7 +21,8 @@ print(f"Searching for uploads after: {last_checkpoint}")
 
 # 2. Elegant Search
 query = f"uploader:{UPLOADER} AND addeddate:[{last_checkpoint} TO 9999-12-31]"
-search = ia.search_items(query, sort_by='addeddate')
+# Change 'sort_by' to 'sort' and provide the sort string correctly
+search = ia.search_items(query, sort=['addeddate'])
 
 new_items = []
 for result in search:
