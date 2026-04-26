@@ -27,6 +27,6 @@ jobs:
         run: |
           git config --global user.name "Archive-Bot"
           git config --global user.email "bot@github.com"
-          git add data/aadam_refined_data.csv
+          git add -u
           git commit -m "Automated update: Added new archive records" || exit 0
           git push
